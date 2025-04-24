@@ -61,17 +61,10 @@ public class Persistencia {
         StringBuilder sb = new StringBuilder();
         String[] parts = null;
         try (BufferedReader buffer = new BufferedReader(new FileReader(arquivo))) {
-            String linha;
+            String linha = null;
             System.out.println("-------📋Lista de Contatos📋-------");
-
-            while ((linha = buffer.readLine()) != null) {
-                parts = linha.split(";");
-
-                for (String part : parts) {
-                    System.out.println(part.trim());
-                }
-                System.out.println("----------------------------");
-            }
+            writeListContacts(linha,parts,buffer);
+            System.out.println("------------------------------------");
         } catch (IOException e) {
             System.out.println("❌ Erro ao ler contatos: ❌" + e.getMessage());
         }
@@ -349,5 +342,19 @@ public class Persistencia {
     }
     public String getArquivoAtual() {
         return this.arquivo;
+    }
+
+    public void writeListContacts(String linha, String parts[],BufferedReader buffer){
+        try {
+            while ((linha = buffer.readLine()) != null) {
+                parts = linha.split(";");
+
+                for (String part : parts) {
+                    System.out.println(part.trim());
+                }
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }
