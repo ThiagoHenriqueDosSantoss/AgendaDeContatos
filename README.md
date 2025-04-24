@@ -4,13 +4,13 @@ Este projeto consiste em uma aplicação simples e funcional para gerenciamento 
 A aplicação permite realizar operações básicas como cadastrar, consultar, atualizar e remover contatos, promovendo o entendimento prático dos conceitos estudados durante a diciplina como
 implementação de expressões regulares, manipulações de arquivos, tratamento de exceções e boas praticas de programação orientada a objetos.
 
-## 🚀 Tecnologias Utilizadas
+## 🖥️ Tecnologias Utilizadas
 
-### 🖥 Back-end
-- Java
+### 🧠 Lógica e Back-end
+- Java — linguagem principal utilizada para a construção da lógica de negócio e funcionamento interno da aplicação.
 
-### 🖥️ Front-end
-- Java Swing
+### 🖼️ Interface Gráfica (Front-end)
+- Java Swing — utilizado como biblioteca para o desenvolvimento da interface gráfica da aplicação (em desenvolvimento).
 
 **Pré-requisitos:** Java 22 
 
