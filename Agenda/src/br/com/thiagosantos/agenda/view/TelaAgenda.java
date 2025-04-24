@@ -31,7 +31,6 @@ public class TelaAgenda extends JFrame {
 
 
         //Caracteristicas dos botoes
-        JPanel painel1 = new JPanel();
         JButton jbAdicionarContato = new JButton("Adicionar Contato");
         JButton jbListarContato = new JButton("Listar Contato");
         JButton jbRemoverContato = new JButton("Remover Contato");
@@ -47,8 +46,15 @@ public class TelaAgenda extends JFrame {
 
         //Ações dos botoes
         jbAdicionarContato.addActionListener(e -> adicionarContato());
+
         jbVoltarTelaInicial.addActionListener(e -> {
             TelaInicial voltarTelaInicial = new TelaInicial();
+            setVisible(true);
+            this.setVisible(false);
+        });
+
+        jbListarContato.addActionListener(e -> {
+            TelaListingContacts tLc = new TelaListingContacts(this);
             setVisible(true);
             this.setVisible(false);
         });

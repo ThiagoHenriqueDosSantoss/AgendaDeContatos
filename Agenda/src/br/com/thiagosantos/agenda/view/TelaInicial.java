@@ -6,7 +6,7 @@ import java.awt.*;
 public class TelaInicial extends JFrame {
 
     public TelaInicial() {
-        setTitle("Bem-vindo à Agenda");
+        setTitle("Agenda de Contatos");
         setSize(700, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
