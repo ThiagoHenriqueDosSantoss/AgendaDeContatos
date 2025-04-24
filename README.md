@@ -19,7 +19,7 @@ implementação de expressões regulares, manipulações de arquivos, tratamento
 git clone https://github.com/ThiagoHenriqueDosSantoss/AgendaDeContatos.git
 
 # Entrar na pasta do projeto back-end
-cd Agenda/src/br.com.thiagosantos.agenda.application
+cd AgendaDeContatos/src/br/com/thiagosantos/agenda/application
 
 # Executar o projeto
 javac Program.java
