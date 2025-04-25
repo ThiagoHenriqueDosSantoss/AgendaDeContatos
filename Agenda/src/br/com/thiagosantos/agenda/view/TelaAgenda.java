@@ -73,8 +73,12 @@ public class TelaAgenda extends JFrame {
             JOptionPane.showMessageDialog(null, "ERRO: Nome inválido!");
             nome = JOptionPane.showInputDialog("Digite o nome do contato:");
         }
+        while(!nome.matches("^[^\\d]*$") || !nome.matches("^[a-zA-ZÀ-ÿ\\s]*$")){
+            JOptionPane.showMessageDialog(null, "ERRO: nome não pode conter números ou caracteres especiais!");
+            nome = JOptionPane.showInputDialog("Digite o nome do contato:");
+        }
         String telefone = JOptionPane.showInputDialog("Digite seu número de telefone");
-        while(!telefone.matches("\\(\\d{2}\\)\\d{5}-\\d{4}")){
+        while(!telefone.matches("\\d{11}")){
             JOptionPane.showMessageDialog(null, "ERRO: Número de telefone inválido!");
             telefone = JOptionPane.showInputDialog("Digite seu número de telefone");
         }
