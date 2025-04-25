@@ -3,6 +3,8 @@ package br.com.thiagosantos.agenda.controller;
 import br.com.thiagosantos.agenda.entities.Contato;
 import br.com.thiagosantos.agenda.entities.Persistencia;
 
+import java.util.Arrays;
+
 public class PersistenciaController2 {
     private Persistencia persistenciaEntities;
 

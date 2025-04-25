@@ -1,5 +1,6 @@
 package br.com.thiagosantos.agenda.view;
 
+import br.com.thiagosantos.agenda.controller.PersistenciaController;
 import br.com.thiagosantos.agenda.controller.PersistenciaController2;
 
 import javax.swing.*;
@@ -25,20 +26,26 @@ public class TelaListingContacts extends JFrame {
         painel.setLayout(new BorderLayout());
         painel.setBackground(Color.GRAY);
 
-        listingContacs(painel);
+        listingContacs();
 
         add(painel);
         setVisible(true);
     }
-    private void listingContacs(JPanel painel) {
-
-        // Listando contatos na tela
+    private void listingContacs() {
+        PersistenciaController persistenciaController = new PersistenciaController();
         String lista = persistenciaController.listContacts();
 
-        JTextArea textArea = new JTextArea(lista);
-        textArea.setEditable(false);
+        System.out.println("Lista recebida: ");
+        System.out.println(lista); // deve imprimir os mesmos dados do terminal
 
-        JScrollPane scrollPane = new JScrollPane(textArea);
-        painel.add(scrollPane, BorderLayout.CENTER);
+        if (lista == null || lista.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Nenhum contato encontrado.");
+        } else {
+            JTextArea textArea = new JTextArea(lista);
+            textArea.setEditable(false);
+            JScrollPane scrollPane = new JScrollPane(textArea);
+            scrollPane.setPreferredSize(new Dimension(350, 200));
+            JOptionPane.showMessageDialog(null, scrollPane, "Agenda de Contatos", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 }

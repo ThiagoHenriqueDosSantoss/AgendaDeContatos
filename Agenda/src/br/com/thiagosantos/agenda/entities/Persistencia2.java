@@ -59,15 +59,15 @@ public class Persistencia2 {
 
     public String listarContatos() {
         StringBuilder sb = new StringBuilder();
-        String[] parts = null;
         try (BufferedReader buffer = new BufferedReader(new FileReader(arquivo))) {
             String linha;
             System.out.println("-------📋Lista de Contatos📋-------");
 
             while ((linha = buffer.readLine()) != null) {
-                parts = linha.split(";");
+                String[] parts = linha.split(";");
 
                 for (String part : parts) {
+                    sb.append(part.trim()).append("\n");
                     System.out.println(part.trim());
                 }
                 System.out.println("----------------------------");
@@ -75,7 +75,7 @@ public class Persistencia2 {
         } catch (IOException e) {
             System.out.println("❌ Erro ao ler contatos: ❌" + e.getMessage());
         }
-        return Arrays.toString(parts);
+        return sb.toString();
     }
 
     public void editarContato(int id, Contato novoContato) {

@@ -6,6 +6,8 @@ import br.com.thiagosantos.agenda.entities.Persistencia2;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class TelaAgenda extends JFrame {
     private PersistenciaController2 persistenciaController = new PersistenciaController2();
@@ -14,37 +16,38 @@ public class TelaAgenda extends JFrame {
 
     public TelaAgenda(TelaInicial telaInicial) {
 
-        //Caracteristica do JFrame
+        // Característica do JFrame
         setTitle("Agenda Contatos");
-        setSize(700,500);
+        setSize(700, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        //Caracteristica do JPanel
+        // Característica do JPanel
         JPanel painel = new JPanel();
-        painel.setSize(300,200);
-        painel.setLayout(new FlowLayout(FlowLayout.LEFT, 10,10));
-        painel.setBackground(Color.GRAY);
+        painel.setLayout(new BoxLayout(painel, BoxLayout.Y_AXIS)); // Layout vertical
 
-        //Icone botoes
+        // Ícone dos botões
         ImageIcon iconeVoltar = new ImageIcon("C:\\Users\\thiago.santos\\IdeaProjects\\AnaliseProjetoDeSistemas\\Agenda\\src\\br\\com\\thiagosantos\\agenda\\sources\\seta-esquerda.png");
 
-
-        //Caracteristicas dos botoes
+        // Características dos botões
         JButton jbAdicionarContato = new JButton("Adicionar Contato");
         JButton jbListarContato = new JButton("Listar Contato");
         JButton jbRemoverContato = new JButton("Remover Contato");
         JButton jbEditarContato = new JButton("Editar Contato");
         JButton jbVoltarTelaInicial = new JButton(iconeVoltar);
-        JButton[] botoes = {jbAdicionarContato,jbListarContato,jbRemoverContato,jbEditarContato,jbVoltarTelaInicial};
+
+        // Adicionando os botões ao painel
+        JButton[] botoes = {jbAdicionarContato, jbListarContato, jbRemoverContato, jbEditarContato, jbVoltarTelaInicial};
 
         for (JButton botao : botoes) {
-            botao.setPreferredSize(new Dimension(100, 100));
-            painel.add(botao); // Adiciona os botoes ao JPanel
-            painel.add(Box.createVerticalStrut(10));
+            botao.setAlignmentX(Component.CENTER_ALIGNMENT); // Centraliza os botões
+            botao.setMaximumSize(new Dimension(200, 100)); // Tamanho máximo
+            botao.setMinimumSize(new Dimension(100, 50)); // Tamanho mínimo
+            painel.add(botao); // Adiciona os botões ao JPanel
+            painel.add(Box.createVerticalStrut(20)); // Espaçamento vertical
         }
 
-        //Ações dos botoes
+        // Ações dos botões
         jbAdicionarContato.addActionListener(e -> adicionarContato());
 
         jbVoltarTelaInicial.addActionListener(e -> {
@@ -58,11 +61,26 @@ public class TelaAgenda extends JFrame {
             setVisible(true);
             this.setVisible(false);
         });
+        /*
+        // Botão para ocultar/mostrar os botões
+        JButton jbToggleSidebar = new JButton("Ocultar/Mostrar Botões");
+        jbToggleSidebar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Alterna a visibilidade do painel
+                painel.setVisible(!painel.isVisible());
+                // Revalida e repinta o frame para atualizar o layout
+                revalidate();
+                repaint();
+            }
+        });
+        jbToggleSidebar.setPreferredSize(new Dimension(100,100));
+        // Adiciona o botão de alternância ao JFrame
+        add(jbToggleSidebar, BorderLayout.NORTH); // Adiciona o botão no topo
+         */
+        add(painel, BorderLayout.WEST); // Adiciona o JPanel ao JFrame
 
-
-        //Ações do JFrame, para adicionar o painel e deixar a janela visivel
-        add(painel); //Adiciona o JPanel ao JFrame;
-        setVisible(true);
+        setVisible(true); // Torna a janela visível
     }
     private void adicionarContato(){
 
