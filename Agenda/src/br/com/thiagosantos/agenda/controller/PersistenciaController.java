@@ -68,4 +68,11 @@ public class PersistenciaController {
     public String getArquivoAtual() {
         return persistenciaEntities.getArquivoAtual();
     }
+    public boolean validId(int id){
+        if (persistenciaEntities.validID(id) == true){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
