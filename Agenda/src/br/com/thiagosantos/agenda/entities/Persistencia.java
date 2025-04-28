@@ -59,16 +59,21 @@ public class Persistencia {
 
     public String listarContatos() {
         StringBuilder sb = new StringBuilder();
-        String[] parts = null;
         try (BufferedReader buffer = new BufferedReader(new FileReader(arquivo))) {
-            String linha = null;
+            String linha;
             System.out.println("-------📋Lista de Contatos📋-------");
-            writeListContacts(linha,parts,buffer);
+            while ((linha = buffer.readLine()) != null) {
+                String[] parts = linha.split(";");
+                for (String part: parts){
+                    System. out.println(part);
+                    sb.append(part).append("\n");
+                }
+            }
             System.out.println("------------------------------------");
         } catch (IOException e) {
             System.out.println("❌ Erro ao ler contatos: ❌" + e.getMessage());
         }
-        return Arrays.toString(parts);
+        return sb.toString();
     }
 
     public void editarContato(int id, Contato novoContato) {

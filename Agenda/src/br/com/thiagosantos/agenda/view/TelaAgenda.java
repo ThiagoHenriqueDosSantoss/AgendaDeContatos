@@ -1,8 +1,6 @@
 package br.com.thiagosantos.agenda.view;
 import br.com.thiagosantos.agenda.controller.PersistenciaController;
-import br.com.thiagosantos.agenda.controller.PersistenciaController2;
 import br.com.thiagosantos.agenda.entities.Contato;
-import br.com.thiagosantos.agenda.entities.Persistencia2;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class TelaAgenda extends JFrame {
-    private PersistenciaController2 persistenciaController = new PersistenciaController2();
+    private PersistenciaController persistenciaController = new PersistenciaController();
 
     private TelaInicial telaInicial;
 
@@ -56,11 +54,7 @@ public class TelaAgenda extends JFrame {
             this.setVisible(false);
         });
 
-        jbListarContato.addActionListener(e -> {
-            TelaListingContacts tLc = new TelaListingContacts(this);
-            setVisible(true);
-            this.setVisible(false);
-        });
+        jbListarContato.addActionListener(e -> listingContacs());
         /*
         // Botão para ocultar/mostrar os botões
         JButton jbToggleSidebar = new JButton("Ocultar/Mostrar Botões");
@@ -79,7 +73,6 @@ public class TelaAgenda extends JFrame {
         add(jbToggleSidebar, BorderLayout.NORTH); // Adiciona o botão no topo
          */
         add(painel, BorderLayout.WEST); // Adiciona o JPanel ao JFrame
-
         setVisible(true); // Torna a janela visível
     }
     private void adicionarContato(){
@@ -118,5 +111,19 @@ public class TelaAgenda extends JFrame {
         Contato contato = new Contato(id, Long.parseLong(telefone), nome, email);
         persistenciaController.addContacts(contato);
         JOptionPane.showMessageDialog(this, "Contato adicionado com sucesso!");
+    }
+    private void listingContacs() {
+        String lista = persistenciaController.listContacts();
+
+
+        if (lista == null) {
+            JOptionPane.showMessageDialog(null, "Nenhum contato encontrado.");
+        } else {
+            JTextArea textArea = new JTextArea(lista);
+            textArea.setEditable(false);
+            JScrollPane scrollPane = new JScrollPane(textArea);
+            scrollPane.setPreferredSize(new Dimension(350, 200));
+            JOptionPane.showMessageDialog(null, scrollPane, "Agenda de Contatos", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 }
