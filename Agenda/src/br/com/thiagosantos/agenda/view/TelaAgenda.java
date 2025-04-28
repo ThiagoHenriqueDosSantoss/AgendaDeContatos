@@ -55,6 +55,7 @@ public class TelaAgenda extends JFrame {
         });
 
         jbListarContato.addActionListener(e -> listingContacs());
+        jbRemoverContato.addActionListener(e -> removeContact());
         /*
         // Botão para ocultar/mostrar os botões
         JButton jbToggleSidebar = new JButton("Ocultar/Mostrar Botões");
@@ -125,5 +126,20 @@ public class TelaAgenda extends JFrame {
             scrollPane.setPreferredSize(new Dimension(350, 200));
             JOptionPane.showMessageDialog(null, scrollPane, "Agenda de Contatos", JOptionPane.INFORMATION_MESSAGE);
         }
+    }
+    private void removeContact(){
+        String id = JOptionPane.showInputDialog("Informe o ID do contato que deseja remover");
+        int idStr = Integer.parseInt(id);
+            if (JOptionPane.showConfirmDialog(null, "Você deseja realmente remover este contato?") == JOptionPane.YES_NO_OPTION)
+            {
+                if (persistenciaController.removeContacts(idStr) == true){
+                    persistenciaController.removeContacts(idStr);
+                    JOptionPane.showMessageDialog(null, "Contato removido com sucesso!");
+                } else if (persistenciaController.removeContacts(idStr) == false) {
+                    JOptionPane.showMessageDialog(null, "ID não existe na agenda!");
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Remoção cancelada!");
+            }
     }
 }

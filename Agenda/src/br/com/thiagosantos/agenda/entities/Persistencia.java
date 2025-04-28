@@ -362,4 +362,18 @@ public class Persistencia {
             e.printStackTrace();
         }
     }
+    public boolean validID(int id){
+        try{
+            BufferedReader bf = new BufferedReader(new FileReader(arquivo));
+            String linha;
+            while ((linha = bf.readLine()) != null){
+                if (linha.contains("ID: "+id)){
+                    return true;
+                }
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

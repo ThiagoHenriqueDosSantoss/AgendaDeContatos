@@ -23,8 +23,13 @@ public class PersistenciaController {
         persistenciaEntities.editarContato(id,contato);
     }
 
-    public void removeContacts(int id){
-        persistenciaEntities.removerContato(id);
+    public boolean removeContacts(int id){
+            if (persistenciaEntities.validID(id)) {
+                persistenciaEntities.removerContato(id);
+                return true;
+            }else{
+                return false;
+            }
     }
 
     public boolean emailIsExists(String email){
