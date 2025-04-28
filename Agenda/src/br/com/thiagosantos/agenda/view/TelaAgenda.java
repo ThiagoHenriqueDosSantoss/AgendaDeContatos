@@ -23,6 +23,7 @@ public class TelaAgenda extends JFrame {
         // Característica do JPanel
         JPanel painel = new JPanel();
         painel.setLayout(new BoxLayout(painel, BoxLayout.Y_AXIS)); // Layout vertical
+        painel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Ícone dos botões
         ImageIcon iconeVoltar = new ImageIcon("C:\\Users\\thiago.santos\\IdeaProjects\\AnaliseProjetoDeSistemas\\Agenda\\src\\br\\com\\thiagosantos\\agenda\\sources\\seta-esquerda.png");
@@ -41,8 +42,15 @@ public class TelaAgenda extends JFrame {
             botao.setAlignmentX(Component.CENTER_ALIGNMENT); // Centraliza os botões
             botao.setMaximumSize(new Dimension(200, 100)); // Tamanho máximo
             botao.setMinimumSize(new Dimension(100, 50)); // Tamanho mínimo
+            botao.setBackground(new Color(148, 190, 234));  // Cor de fundo (azul aço)
+            botao.setForeground(Color.WHITE);
+            botao.setFont(new Font("Arial", Font.BOLD, 16));
+            // Deixa a borda arredondada
+            botao.setFocusPainted(false); // Tira o foco feio quando clica
+            botao.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
             painel.add(botao); // Adiciona os botões ao JPanel
-            painel.add(Box.createVerticalStrut(20)); // Espaçamento vertical
+            painel.add(Box.createVerticalStrut(25)); // Espaçamento vertical
+            painel.setBackground(Color.black);
         }
 
         // Ações dos botões
