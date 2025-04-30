@@ -155,48 +155,98 @@ public class TelaAgenda extends JFrame {
         String[] opcoes = {"ID", "Telefone"};
         int escolha = JOptionPane.showOptionDialog(this, "Escolha por qual parametro editar:", "ID ou Telefone",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcoes, opcoes[0]);
-        if (escolha == 0){
+        if (escolha == 0) {
             String idStr = JOptionPane.showInputDialog("Informe o ID do contato:");
             if (idStr == null || !idStr.matches("\\d+")) return;
             int id = Integer.parseInt(idStr);
+            if (!persistenciaController.validId(id)){
+                JOptionPane.showMessageDialog(null,"O ID informado não existe!");
+            }else{
+                Contato novoContato = new Contato();
+                novoContato.setId(id);
 
-            Contato novoContato = new Contato();
-            novoContato.setId(id);
-
-            int editarNome = JOptionPane.showConfirmDialog(this, "Deseja editar o nome?", "Editar", JOptionPane.YES_NO_OPTION);
-            if (editarNome == JOptionPane.YES_OPTION) {
-                String nome = JOptionPane.showInputDialog("Informe o novo nome completo:");
-                while (nome == null || nome.length() < 5 || !nome.contains(" ")) {
-                    JOptionPane.showMessageDialog(this, "Nome inválido! Digite nome e sobrenome.");
-                    nome = JOptionPane.showInputDialog("Informe o novo nome completo:");
-                }
-                novoContato.setNome(nome);
-            }
-            int editarTelefone = JOptionPane.showConfirmDialog(this, "Deseja editar o telefone?", "Editar", JOptionPane.YES_NO_OPTION);
-            if (editarTelefone == JOptionPane.YES_OPTION) {
-                String telefoneStr = JOptionPane.showInputDialog("Informe o novo telefone (11 dígitos):");
-                while (telefoneStr == null || !telefoneStr.matches("\\d{11}")) {
-                    JOptionPane.showMessageDialog(this, "Telefone inválido!");
-                    telefoneStr = JOptionPane.showInputDialog("Informe o novo telefone (11 dígitos):");
-                }
-                novoContato.setTelefone(Long.parseLong(telefoneStr));
-            }
-            int editarEmail = JOptionPane.showConfirmDialog(this, "Deseja editar o email?", "Editar", JOptionPane.YES_NO_OPTION);
-            if (editarEmail == JOptionPane.YES_OPTION) {
-                String email = JOptionPane.showInputDialog("Informe o novo email:");
-                while (email == null || !email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$") || persistenciaController.emailIsExists(email)) {
-                    if (email != null && persistenciaController.emailIsExists(email)) {
-                        JOptionPane.showMessageDialog(this, "Email já existente!");
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Email inválido!");
+                int editarNome = JOptionPane.showConfirmDialog(this, "Deseja editar o nome?", "Editar", JOptionPane.YES_NO_OPTION);
+                if (editarNome == JOptionPane.YES_OPTION) {
+                    String nome = JOptionPane.showInputDialog("Informe o novo nome completo:");
+                    while (nome == null || nome.length() < 5 || !nome.contains(" ")) {
+                        JOptionPane.showMessageDialog(this, "Nome inválido! Digite nome e sobrenome.");
+                        nome = JOptionPane.showInputDialog("Informe o novo nome completo:");
                     }
-                    email = JOptionPane.showInputDialog("Informe o novo email:");
+                    novoContato.setNome(nome);
                 }
-                novoContato.setEmail(email);
-            }
+                int editarTelefone = JOptionPane.showConfirmDialog(this, "Deseja editar o telefone?", "Editar", JOptionPane.YES_NO_OPTION);
+                if (editarTelefone == JOptionPane.YES_OPTION) {
+                    String telefoneStr = JOptionPane.showInputDialog("Informe o novo telefone (11 dígitos):");
+                    while (telefoneStr == null || !telefoneStr.matches("\\d{11}")) {
+                        JOptionPane.showMessageDialog(this, "Telefone inválido!");
+                        telefoneStr = JOptionPane.showInputDialog("Informe o novo telefone (11 dígitos):");
+                    }
+                    novoContato.setTelefone(Long.parseLong(telefoneStr));
+                }
+                int editarEmail = JOptionPane.showConfirmDialog(this, "Deseja editar o email?", "Editar", JOptionPane.YES_NO_OPTION);
+                if (editarEmail == JOptionPane.YES_OPTION) {
+                    String email = JOptionPane.showInputDialog("Informe o novo email:");
+                    while (email == null || !email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$") || persistenciaController.emailIsExists(email)) {
+                        if (email != null && persistenciaController.emailIsExists(email)) {
+                            JOptionPane.showMessageDialog(this, "Email já existente!");
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Email inválido!");
+                        }
+                        email = JOptionPane.showInputDialog("Informe o novo email:");
+                    }
+                    novoContato.setEmail(email);
+                }
 
-            persistenciaController.editContacts(id, novoContato);
-            JOptionPane.showMessageDialog(this, "Contato editado com sucesso!");
+                persistenciaController.editContacts(id, novoContato);
+                JOptionPane.showMessageDialog(this, "Contato editado com sucesso!");
+            }
+        }else{
+            String telStr = JOptionPane.showInputDialog("Informe o numero de telfone do contato:");
+            if (telStr == null || !telStr.matches("\\d+")) return;
+            while(telStr.length() < 11){
+                JOptionPane.showMessageDialog(null,"ERRO: Número de telefone inválido!");
+                telStr = JOptionPane.showInputDialog("Informe o numero de telfone do contato:");
+            }
+            if (!persistenciaController.validNumberTel(telStr)){
+                JOptionPane.showMessageDialog(null,"ERRO: Número de telefone informado não existe!");
+            }else{
+                Contato novoContato = new Contato();
+                boolean editar = true;
+
+                int editarNome = JOptionPane.showConfirmDialog(this, "Deseja editar o nome?", "Editar", JOptionPane.YES_NO_OPTION);
+                if (editarNome == JOptionPane.YES_OPTION) {
+                    String nome = JOptionPane.showInputDialog("Informe o novo nome completo:");
+                    while (nome == null || nome.length() < 5 || !nome.contains(" ")) {
+                        JOptionPane.showMessageDialog(this, "Nome inválido! Digite nome e sobrenome.");
+                        nome = JOptionPane.showInputDialog("Informe o novo nome completo:");
+                    }
+                    novoContato.setNome(nome);
+                }
+                int editarTelefone = JOptionPane.showConfirmDialog(this, "Deseja editar o telefone?", "Editar", JOptionPane.YES_NO_OPTION);
+                if (editarTelefone == JOptionPane.YES_OPTION) {
+                    String telefoneStr = JOptionPane.showInputDialog("Informe o novo telefone (11 dígitos):");
+                    while (telefoneStr == null || !telefoneStr.matches("\\d{11}")) {
+                        JOptionPane.showMessageDialog(this, "Telefone inválido!");
+                        telefoneStr = JOptionPane.showInputDialog("Informe o novo telefone (11 dígitos):");
+                    }
+                    novoContato.setTelefone(Long.parseLong(telefoneStr));
+                }
+                int editarEmail = JOptionPane.showConfirmDialog(this, "Deseja editar o email?", "Editar", JOptionPane.YES_NO_OPTION);
+                if (editarEmail == JOptionPane.YES_OPTION) {
+                    String email = JOptionPane.showInputDialog("Informe o novo email:");
+                    while (email == null || !email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$") || persistenciaController.emailIsExists(email)) {
+                        if (email != null && persistenciaController.emailIsExists(email)) {
+                            JOptionPane.showMessageDialog(this, "Email já existente!");
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Email inválido!");
+                        }
+                        email = JOptionPane.showInputDialog("Informe o novo email:");
+                    }
+                    novoContato.setEmail(email);
+                }
+
+                persistenciaController.editOrRemoveOnNumber(telStr,editar,novoContato);
+            }
         }
     }
 }

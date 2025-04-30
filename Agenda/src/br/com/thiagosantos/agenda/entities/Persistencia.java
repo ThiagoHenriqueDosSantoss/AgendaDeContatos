@@ -376,4 +376,18 @@ public class Persistencia {
         }
         return false;
     }
+    public boolean validNumberTel(String Tel){
+        try{
+            BufferedReader bf = new BufferedReader(new FileReader(arquivo));
+            String linha;
+            while ((linha = bf.readLine()) != null){
+                if (linha.contains("Telefone: "+Tel)){
+                    return true;
+                }
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

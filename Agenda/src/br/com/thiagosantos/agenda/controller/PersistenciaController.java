@@ -3,6 +3,8 @@ package br.com.thiagosantos.agenda.controller;
 import br.com.thiagosantos.agenda.entities.Contato;
 import br.com.thiagosantos.agenda.entities.Persistencia;
 
+import javax.swing.*;
+
 public class PersistenciaController {
     private Persistencia persistenciaEntities;
 
@@ -72,6 +74,13 @@ public class PersistenciaController {
         if (persistenciaEntities.validID(id) == true){
             return true;
         }else{
+            return false;
+        }
+    }
+    public boolean validNumberTel(String telefone){
+        if (persistenciaEntities.validNumberTel(telefone)){
+            return true;
+        }else {
             return false;
         }
     }
